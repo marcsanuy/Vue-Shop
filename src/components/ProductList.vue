@@ -1,7 +1,24 @@
 <template>
-    <div>
-        {{ products.length }}
+    <div v-if="products.length">
+        <paginate 
+            name="products"
+            :list="products"
+            :per="perPage"
+        >
+           <p v-for="product in paginated('products')">{{ products.name }}</p>
+        </paginate>
+        
+        <paginate-links
+            for="products"
+            :classes="{
+                'ul': 'pagination',
+                'li': 'page-item',
+                'li > a': 'page-link'
+            }"
+        ></paginate-links>
+        
     </div>
+    <b-alert v-else show variant="info">No hay productos que mostrar</b-alert>
 </template>
 
 <script>
